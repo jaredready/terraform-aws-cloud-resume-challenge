@@ -4,6 +4,12 @@ variable "domain_name" {
 }
 
 variable "github_namespace" {
-  description = "The GitHub User or Organization authorized to assume the deployment IAM role"
+  description = "The GitHub User or Organization authorized to assume the deployment IAM role."
   type        = string
+}
+
+variable "tags" {
+  description = "A map of tags to add to all resources."
+  type        = map(string)
+  default     = {}
 }

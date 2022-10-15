@@ -6,6 +6,8 @@ resource "aws_iam_openid_connect_provider" "github" {
   ]
 
   thumbprint_list = [data.tls_certificate.github.certificates[0].sha1_fingerprint]
+
+  tags = var.tags
 }
 
 resource "aws_iam_role" "github" {
@@ -32,6 +34,8 @@ resource "aws_iam_role" "github" {
       },
     ]
   })
+
+  tags = var.tags
 }
 
 resource "aws_iam_policy" "github" {
@@ -58,6 +62,8 @@ resource "aws_iam_policy" "github" {
       },
     ]
   })
+
+  tags = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "github" {
@@ -68,6 +74,8 @@ resource "aws_iam_role_policy_attachment" "github" {
 resource "aws_acm_certificate" "this" {
   domain_name       = var.domain_name
   validation_method = "DNS"
+
+  tags = var.tags
 
   lifecycle {
     create_before_destroy = true
@@ -89,6 +97,8 @@ resource "aws_route53_record" "certificate_validation" {
   ttl             = 60
   type            = each.value.type
   zone_id         = data.aws_route53_zone.this.zone_id
+
+  tags = var.tags
 }
 
 resource "aws_acm_certificate_validation" "this" {
@@ -98,6 +108,8 @@ resource "aws_acm_certificate_validation" "this" {
 
 resource "aws_s3_bucket" "this" {
   bucket = var.domain_name
+
+  tags = var.tags
 }
 
 resource "aws_s3_bucket_acl" "this" {
@@ -178,6 +190,8 @@ resource "aws_cloudfront_distribution" "this" {
     max_ttl                = 86400
     compress               = true
   }
+
+  tags = var.tags
 }
 
 resource "aws_route53_record" "site" {
@@ -190,4 +204,6 @@ resource "aws_route53_record" "site" {
     zone_id                = aws_cloudfront_distribution.this.hosted_zone_id
     evaluate_target_health = false
   }
+
+  tags = var.tags
 }
