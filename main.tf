@@ -97,8 +97,6 @@ resource "aws_route53_record" "certificate_validation" {
   ttl             = 60
   type            = each.value.type
   zone_id         = data.aws_route53_zone.this.zone_id
-
-  tags = var.tags
 }
 
 resource "aws_acm_certificate_validation" "this" {
@@ -204,6 +202,4 @@ resource "aws_route53_record" "site" {
     zone_id                = aws_cloudfront_distribution.this.hosted_zone_id
     evaluate_target_health = false
   }
-
-  tags = var.tags
 }
