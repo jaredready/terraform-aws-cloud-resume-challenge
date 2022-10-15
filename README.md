@@ -43,7 +43,8 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | The domain name of the site. A hosted zone for this domain must be present. | `string` | n/a | yes |
-| <a name="input_github_namespace"></a> [github\_namespace](#input\_github\_namespace) | The GitHub User or Organization authorized to assume the deployment IAM role | `string` | n/a | yes |
+| <a name="input_github_namespace"></a> [github\_namespace](#input\_github\_namespace) | The GitHub User or Organization authorized to assume the deployment IAM role. | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources. | `map(string)` | `{}` | no |
 
 ## Outputs
 
